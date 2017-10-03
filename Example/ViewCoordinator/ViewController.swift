@@ -13,7 +13,9 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 	
 	required init(withMode mode: ExampleMode) {
 		super.init(nibName: nil, bundle: nil)
+		// initialising viewCoordinator
 		viewCoordinator = ViewCoordinator(attachedToParentViewController: self)
+		// subscribing to its delegate 
 		viewCoordinator?.delegate = self 
 		self.mode = mode
 	}
