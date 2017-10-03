@@ -15,32 +15,38 @@ public struct ViewWrapper {
 
 public protocol ViewCoordinatorProtocol: class  {
 	func currentlyPresentedWrapper(_ wrapper:ViewWrapper)
+	func numberOfWrappersCurrentlyInContainer(_ wrappers: [ViewWrapper]?)
 }
 
-
-/// dont' forget to subscribe to ViewRecyclerProtocol
+///ViewCoordinator is an elegant way to present and dismiss your UIViews onto
+/// a UIViewController.
+/// All you need to do is wrapped any views that you wish to display inside a ViewWrapper, which takes few metadata such as UID to reference to that particular View. Then you take that array of ViewWrappers then drop it into the ViewCoordinator's container. Simple as that, and also
+/// dont' forget to subscribe to ViewRecyclerProtocol.
 final public class ViewCoordinator {
-	private  let parent:UIViewController!
+	private  var parent:UIViewController?
 	
+	//Todo: optimize with BST instead
 	private  var wrapperContainer:[ViewWrapper] {
 		didSet {
 			if !wrapperContainer.isEmpty {
 				rootWrapper = wrapperContainer.first
 				hasRootWrapper = true
+				delegate?.numberOfWrappersCurrentlyInContainer(wrapperContainer)
 			} else {
 				rootWrapper = nil
 				hasRootWrapper = false
+				delegate?.numberOfWrappersCurrentlyInContainer(nil)
 			}
 		}
 		
 	}
 	
-	//private var previous:ViewWrapper?  { return wrapperContainer.last }
+	// TODO: what if we wan't to swap current with previous
+	//private var previousWrapper:ViewWrapper? = nil
 	
 	private var isEmpty : Bool { return wrapperContainer.isEmpty }
 	
 	
-	// optimize with binary tree instead
 	public weak var delegate:ViewCoordinatorProtocol? = nil
 	
 	public var hasRootWrapper:Bool = false
@@ -62,17 +68,23 @@ final public class ViewCoordinator {
 		wrapperContainer = []
 	}
 	
+	
 	public func addMultipleViewsToStack(_ wrappers:[ViewWrapper]) {
 		wrappers.forEach { wrapperContainer.append($0)  }
 	}
 	
-	
+	/// presentTopView: would present the first wrapper from
+	/// the coordinator's container, if you wish to present a different wrapper use this method
+	/// presentViewWrapperBy(uid:String)
 	public func presentTopView() {
 		 if let first = rootWrapper {
 				presentViewWrapperBy(uid: first.uid)
 		}
 	}
 	
+	/// dismissTopView: would dismiss the first wrapper from
+	/// the coordinator's container, if you wish to dismiss a different wrapper use
+	/// this method dismissViewWrapperBy
 	public func dismissTopView() {
 		if let first = rootWrapper {
 			dismissViewWrapperBy(uid: first.uid)
@@ -80,22 +92,18 @@ final public class ViewCoordinator {
 	}
 
 	
-	/// passing the uid of the wrapper that you wish
-	/// to present
+	///presentViewWrapperBy: provide the associated uid of the specific wrapper
+	/// that you want to display
 	public func presentViewWrapperBy(uid:String) {
 		if isEmpty != true {
 			perform(action: .display, with: uid)
 		}
 	}
 	
-	///Would present each wrapper from containers
-	/// on top of each other like stack onto your parent
-	public func presentAllWrappersOnScreen() {
+	///presentAll: would display all wrappers on top of each like a stack
+	public func presentAll() {
 		if isEmpty != true  {
-			UIView.animate(withDuration: 0.5) { [weak self] in
-				guard let strongSelf = self else { return	}
-				strongSelf.wrapperContainer.forEach { strongSelf.addSubViewToParent($0.view) }
-			}
+			wrapperContainer.forEach { presentViewWrapperBy(uid: $0.uid) }
 		}
 	}
 	
@@ -109,14 +117,12 @@ final public class ViewCoordinator {
 		}
 	}
 	
-	///Would remove each wrapper from containers
-	/// that were on screen
-	public func dismissAllWrappersOnScreen() {
+	///dismissAll: would remove all wrappers from screens
+	/// including the root wrapper, if you don't wish to
+	/// remove the root wrapper use this popUntilRootWrapper()
+	public func dismissAll() {
 		if isEmpty != true {
-			UIView.animate(withDuration: 0.5) { [weak self] in
-				guard let strongSelf = self else { return	}
-				strongSelf.wrapperContainer.forEach { strongSelf.removeViewFromParent($0.view) }
-			}
+			wrapperContainer.forEach { dismissViewWrapperBy(uid: $0.uid) }
 		}
 	}
 	
@@ -129,7 +135,7 @@ final public class ViewCoordinator {
 	
 	
 	//TODO: flip between screens
-	//TODO: go back to from init scree
+	//TODO: go back to from init screen
 
 	public func popUntilRootWrapper() {
 		if isEmpty != true {
@@ -189,8 +195,11 @@ final public class ViewCoordinator {
 	
 	
 	deinit {
-		dismissAllWrappersOnScreen()
-		//parent.view = nil 
+		dismissAll()
+		rootWrapper = nil
+		presentedWrapper = nil
+		delegate = nil
+		parent = nil
 	}
 	
 }

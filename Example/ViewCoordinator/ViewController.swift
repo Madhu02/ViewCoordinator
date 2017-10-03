@@ -2,6 +2,7 @@ import UIKit
 import ViewCoordinator
 
 class ViewController: UIViewController, ViewCoordinatorProtocol {
+	
 	enum ExampleMode {
 		case single
 		case stack
@@ -26,6 +27,7 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 		super.viewDidLoad()
 		view.backgroundColor = .white
 		 addButton()
+		
 		if let _mode = mode {
 			switch _mode {
 			case .single:
@@ -66,17 +68,14 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 	     Present and Dismissing a multiples UIViews
 	*/
 	
-	
 	private func stackOfViewsManipulations() {
 		let colors:[UIColor]  = [.blue, .purple, .orange, .green]
 		var wrappers = [ViewWrapper]()
 		for i in 0...3 {
 			let _view = UIView(frame: view.frame)
-			let tag:String = "view#\(i)"
 			_view.backgroundColor = colors[i]
-			//_view.accessibilityIdentifier = tag
 			_view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnGesture(gesture:))))
-			wrappers.append(ViewWrapper(view: _view, uid:tag ))
+			wrappers.append(ViewWrapper(view: _view, uid: "view#\(i)" ))
 		}
 		viewCoordinator?.addMultipleViewsToStack(wrappers)
 	}
@@ -90,12 +89,12 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 				case "SingleViewTag":
 					viewCoordinator?.dismissTopView()
 				case "view#0":
-					viewCoordinator?.presentAllWrappersOnScreen()
+					viewCoordinator?.presentAll()
 				case "view#1":
 					break;
 				case "view#2":
 					//	viewCoordinator?.popUntilRootWrapper()
-					viewCoordinator?.dismissAllWrappersOnScreen()
+					viewCoordinator?.dismissAll()
 				case "view#3":
 					viewCoordinator?.singlePop()
 				default:
@@ -110,11 +109,15 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 		viewCoordinator?.presentTopView()
 	}
 	
-	// MARK:- Delegate
+	// MARK:-  ViewCoordinatorProtocol
 	func currentlyPresentedWrapper(_ wrapper:ViewWrapper) {
 		print("info of current presented wrapper \(wrapper)")
 	}
 
+	func numberOfWrappersCurrentlyInContainer(_ wrappers: [ViewWrapper]?) {
+		print("# of wrappers into the coordinator containers \(wrappers?.count ?? 0)" )
+	}
+	
 	
 }
 

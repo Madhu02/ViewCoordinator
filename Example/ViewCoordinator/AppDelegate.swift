@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		    modify the mode here so you could get different behavior
 		    -> stack or .single 
 		*/
-		window?.rootViewController = ViewController(withMode: .stack)
+		window?.rootViewController = ViewController(withMode: .single)
 		window?.makeKeyAndVisible()
 		return true
 	}
