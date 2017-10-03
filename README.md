@@ -15,30 +15,26 @@ drop all your views into a container, then use the ViewCoordinator mechanism to 
 No need to manually adding views to the parent's view, No need need to create repeated code to present or dismiss
 your views. Just wrap your views with a ViewWrapper and drop that single or array of ViewWrappers into the ViewCoordinator's container.
 
-```
+```Swift
 private func singleViewManipulation() {
 	let _view = UIView(frame: view.frame) // create your view
-	_view.backgroundColor = .red
-     let firstViewWrapper = ViewWrapper(view: _view, uid: "SingleViewTag") // wrap your view
-	viewCoordinator?.addMultipleViewsToStack([firstViewWrapper]) // drop that view into viewCoordinator's container
+    _view.backgroundColor = .red
+    let firstViewWrapper = ViewWrapper(view: _view, uid: "SingleViewTag") // wrap your view
+	viewCoordinator?.addMultipleViewsToStack([firstViewWrapper]) // drop into our container
 }
 
-// if you call this
 viewCoordinator?.presentTopView() // it would present that single view onto your controller
 
-// if you call this
 viewCoordinator?.dismissTopView() // it would dismiss that single view from your controller
-
-// if you want to manipulate more views, check out the example project.
 
 ```
 ## Run Example Project
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+To run the example project to explore and see more examples, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
 
-## Installation
+## Installation (Currently Facing an issue with the pod, so I'll add a swift manager package to it)
 
 ViewCoordinator is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
