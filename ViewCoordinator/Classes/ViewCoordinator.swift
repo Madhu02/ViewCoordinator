@@ -9,11 +9,12 @@ public struct ViewWrapper {
 	public init(view:UIView, uid:String) {
 		self.view = view
 		self.uid = uid
+		self.view.accessibilityIdentifier = uid
 	}
 }
 
 public protocol ViewCoordinatorProtocol: class  {
-	//func viewAtTheRootViewRecycler(view:UIView)
+	func currentlyPresentedWrapper(_ wrapper:ViewWrapper)
 }
 
 
@@ -47,6 +48,15 @@ final public class ViewCoordinator {
 	/// the wrapper that is at the root
 	private var rootWrapper:ViewWrapper? = nil
 	
+	/// the wrapper that is currently presented into screen
+	private var presentedWrapper:ViewWrapper? = nil {
+		didSet {
+			if presentedWrapper != nil, let presented = presentedWrapper {
+				 delegate?.currentlyPresentedWrapper(presented)
+			}
+		}
+	}
+	
 	required public init(attachedToParentViewController _parent:UIViewController) {
 		parent = _parent
 		wrapperContainer = []
@@ -58,24 +68,17 @@ final public class ViewCoordinator {
 	
 	
 	public func presentTopView() {
-		if isEmpty != true {
-			UIView.animate(withDuration: 0.5) { [weak self] in
-				if let strongSelf = self, let root = strongSelf.rootWrapper {
-					strongSelf.addSubViewToParent(root.view)
-				}
-			}
+		 if let first = rootWrapper {
+				presentViewWrapperBy(uid: first.uid)
 		}
 	}
 	
 	public func dismissTopView() {
-		if isEmpty != true  {
-			UIView.animate(withDuration: 0.5) { [weak self] in
-				if let strongSelf = self, let root = strongSelf.rootWrapper {
-					strongSelf.removeViewFromParent(root.view)
-				}
-			}
+		if let first = rootWrapper {
+			dismissViewWrapperBy(uid: first.uid)
 		}
 	}
+
 	
 	/// passing the uid of the wrapper that you wish
 	/// to present
@@ -162,6 +165,7 @@ final public class ViewCoordinator {
 		
 		switch action {
 		case .display:
+			presentedWrapper = selectedWrapper
 			UIView.animate(withDuration: duration) { [weak self] in
 				guard let strongSelf = self else { return }
 				strongSelf.addSubViewToParent(selectedWrapper.view)
