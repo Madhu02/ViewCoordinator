@@ -1,0 +1,16 @@
+PODS:
+  - ViewCoordinator (0.1.0)
+
+DEPENDENCIES:
+  - ViewCoordinator (from `../`)
+
+EXTERNAL SOURCES:
+  ViewCoordinator:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ViewCoordinator: 2d35674878adfb03a23a6a89e7b9bc0d551292b1
+
+PODFILE CHECKSUM: b7af7779d2045c3e2b9877ad07ed635f4383d11c
+
+COCOAPODS: 1.4.0.beta.1

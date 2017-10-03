@@ -1,0 +1,6 @@
+framework module ViewCoordinator {
+  umbrella header "ViewCoordinator-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ViewCoordinator",
+  "version": "0.1.0",
+  "summary": "A short description of ViewCoordinator.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/MeekD/ViewCoordinator",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "MeekD": "lamour2016@hotmail.com"
+  },
+  "source": {
+    "git": "https://github.com/MeekD/ViewCoordinator.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ViewCoordinator/Classes/**/*"
+}
