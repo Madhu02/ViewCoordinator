@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ViewCoordinator'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ViewCoordinator.'
+  s.summary          = 'Elegant way to manipulate and display UIViews onto a Controller'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,15 +17,15 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+s.description      = <<-DESC
+Instead of hiding views that you'd need to present at a certain time, you would just need to drop all your views into a container, then use the ViewCoordinator mechanism to bring them back into screen.
+DESC
 
-  s.homepage         = 'https://github.com/MeekD/ViewCoordinator'
+  s.homepage         = 'https://github.com/LamourBt/ViewCoordinator'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'MeekD' => 'lamour2016@hotmail.com' }
-  s.source           = { :git => 'https://github.com/MeekD/ViewCoordinator.git', :tag => s.version.to_s }
+  s.author           = { 'LamourBt' => 'lamour2016@hotmail.com' }
+  s.source           = { :git => 'https://github.com/LamourBt/ViewCoordinator.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -37,6 +37,6 @@ TODO: Add long description of the pod here.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+   s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
