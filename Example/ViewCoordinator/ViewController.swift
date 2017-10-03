@@ -3,7 +3,7 @@ import ViewCoordinator
 
 class ViewController: UIViewController, ViewCoordinatorProtocol {
 	
-	var viewCoordinator:ViewRecycler? = nil
+	var viewCoordinator:ViewCoordinator? = nil
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

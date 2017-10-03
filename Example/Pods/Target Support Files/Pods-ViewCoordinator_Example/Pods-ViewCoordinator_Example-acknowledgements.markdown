@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## ViewCoordinator
 
-Copyright (c) 2017 MeekD <lamour2016@hotmail.com>
+Copyright (c) 2017 LamourBt <lamour2016@hotmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

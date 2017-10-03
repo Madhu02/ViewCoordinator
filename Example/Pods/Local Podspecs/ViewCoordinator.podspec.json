@@ -1,22 +1,23 @@
 {
   "name": "ViewCoordinator",
   "version": "0.1.0",
-  "summary": "A short description of ViewCoordinator.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/MeekD/ViewCoordinator",
+  "summary": "Elegant way to manipulate and display UIViews onto a Controller",
+  "description": "Instead of hiding views that you'd need to present at a certain time, you would just need to drop all your views into a container, then use the ViewCoordinator mechanism to bring them back into screen.",
+  "homepage": "https://github.com/LamourBt/ViewCoordinator",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "MeekD": "lamour2016@hotmail.com"
+    "LamourBt": "lamour2016@hotmail.com"
   },
   "source": {
-    "git": "https://github.com/MeekD/ViewCoordinator.git",
+    "git": "https://github.com/LamourBt/ViewCoordinator.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "ViewCoordinator/Classes/**/*"
+  "source_files": "ViewCoordinator/Classes/**/*",
+  "frameworks": "UIKit"
 }
