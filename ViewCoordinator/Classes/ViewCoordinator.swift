@@ -1,6 +1,15 @@
 import Foundation
 import UIKit
 
+/*
+Todo:
+   - handling views on rotation
+   - handling autolayouts
+   - adding test 
+*/
+
+
+
 ///Wrapper is just a struct that add uid to your UIView
 public struct ViewWrapper {
 	let view:UIView

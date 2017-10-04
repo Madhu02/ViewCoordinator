@@ -13,7 +13,7 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 	
 	required init(withMode mode: ExampleMode) {
 		super.init(nibName: nil, bundle: nil)
-		// initialising viewCoordinator
+		// initializing viewCoordinator
 		viewCoordinator = ViewCoordinator(attachedToParentViewController: self)
 		// subscribing to its delegate 
 		viewCoordinator?.delegate = self 
@@ -58,11 +58,10 @@ class ViewController: UIViewController, ViewCoordinatorProtocol {
 	
 	private func singleViewManipulation() {
 		let _view = UIView(frame: view.frame)
-		let tag = "SingleViewTag"
-		//_view.accessibilityIdentifier = tag
 		_view.backgroundColor = .red
 		_view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnGesture(gesture:))))
-	    viewCoordinator?.addMultipleViewsToStack([ ViewWrapper(view: _view, uid: tag)])
+		let firstViewWrapper = ViewWrapper(view: _view, uid: "SingleViewTag")
+	    viewCoordinator?.addMultipleViewsToStack([firstViewWrapper])
 	}
 	
 	
