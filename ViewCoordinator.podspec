@@ -37,7 +37,7 @@ DESC
   # }
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-
+ # s.pod_target_xcconfig = { "SWIFT_VERSION" => "4.0" }
   # s.public_header_files = 'Pod/Classes/**/*.h'
    s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
