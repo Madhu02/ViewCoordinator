@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ViewCoordinator_Example' do
+  pod 'ViewCoordinator', :path => '../'
+
+  target 'ViewCoordinator_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
