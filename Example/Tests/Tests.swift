@@ -15,9 +15,8 @@ class Tests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
+		shouldPassInitialazingTest()
+	}
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -25,5 +24,29 @@ class Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+	
+	
     
+}
+
+extension Tests {
+	
+	func shouldPassInitialazingTest() {
+		let parent = UIViewController()
+		XCTAssertNotNil(parent)
+		let coordinator = ViewCoordinator(attachedToParentViewController: parent)
+		XCTAssertNotNil(coordinator)
+		XCTAssertNil(coordinator.delegate)
+		
+		let testView = UIView()
+		XCTAssertNotNil(testView)
+		let testViewWrapper = ViewWrapper(view: testView, uid: "TestViewTag")
+		XCTAssertNotNil(testViewWrapper.uid)
+		XCTAssertNotNil(testViewWrapper.view)
+		coordinator.addMultipleViewsToStack([testViewWrapper])
+		XCTAssertNotNil(coordinator.hasRootWrapper)
+		coordinator.clear()
+		XCTAssertFalse(coordinator.hasRootWrapper)
+		
+	}
 }
